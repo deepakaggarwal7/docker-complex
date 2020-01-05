@@ -1,37 +1,40 @@
 {
-    "AWSEBDockerrunVersion": "2",
-    "containers":[
-        {
-            "name":"server",
-            "image":"deepakaggarwal/multi-docker-server",
-            "essential":"false",
-            "hostname": "api",
-            "memory": 128
-        },
-        {
-            "name":"client",
-            "image":"deepakaggarwal/multi-docker-client",
-            "essential":"false",
-            "memory": 128
-        },
-        {
-            "name":"worker",
-            "image":"deepakaggarwal/multi-docker-worker",
-            "essential":"false",
-            "memory": 128
-        },
-        {
-            "name":"nginx",
-            "image":"deepakaggarwal/multi-docker-nginx",
-            "essential":"true",
-            "memory": 128,
-            "links":["server","client"],
-            "portMappings":[
-                {
-                    "hostPort":80,
-                    "containerPort":80
-                }
-            ]
-        }
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+      {
+        "name": "client",
+        "image": "deepakaggarwal/multi-docker-client",
+        "hostname": "client",
+        "essential": false,
+        "memory": 128
+      },
+      {
+        "name": "server",
+        "image": "deepakaggarwal/multi-docker-server",
+        "hostname": "api",
+        "essential": false,
+        "memory": 128
+      },
+      {
+        "name": "worker",
+        "image": "deepakaggarwal/multi-docker-worker",
+        "hostname": "worker",
+        "essential": false,
+        "memory": 128
+      },
+      {
+        "name": "nginx",
+        "image": "deepakaggarwal/multi-docker-nginx",
+        "hostname": "nginx",
+        "essential": true,
+        "portMappings": [
+          {
+            "hostPort": 80,
+            "containerPort": 80
+          }
+        ],
+        "links": ["client", "server"],
+        "memory": 128
+      }
     ]
-}
+  }
