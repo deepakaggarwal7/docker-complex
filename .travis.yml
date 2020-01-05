@@ -1,0 +1,29 @@
+sudo: required
+services:
+    - docker
+    
+before_install:
+# build all images
+    - docker build -t ./worker -f Dockerfile.dev
+    - docker build -t clientBuilder ./client -f Dockerfile.dev
+    - docker build ./server -f Dockerfile.dev
+
+scripts:
+# run tests
+    - docker CI=true run clientBuilder npm  test -- --coverage
+
+
+after_success:
+# deploy all images to docker hub and dockerrun to aws
+    - docker build -t deepakaggarwal/multi-docker-client ./client
+    - docker build -t deepakaggarwal/multi-docker-server ./server
+    - docker build -t deepakaggarwal/multi-docker-nginx ./nginx
+    - docker build -t deepakaggarwal/multi-docker-worker ./worker
+# log-in to docker hub
+    - echo "$PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# push the images
+    - docker push deepakaggarwal/multi-docker-client
+    - docker push deepakaggarwal/multi-docker-server
+    - docker push deepakaggarwal/multi-docker-nginx 
+    - docker push deepakaggarwal/multi-docker-worker
+    
