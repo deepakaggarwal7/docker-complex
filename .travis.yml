@@ -26,6 +26,7 @@ after_success:
     - docker push deepakaggarwal/multi-docker-worker
 
 deploy:
+    edge: true
     provider: elasticbeanstalk
     region: us-east-1
     access_key_id: $AWS_ACCESS_KEY
