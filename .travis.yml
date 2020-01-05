@@ -4,11 +4,11 @@ services:
     
 before_install:
 # build all images
-    - docker build -t deepakaggarwal/clientbuilder -f Dockerfile.dev  ./client
+    - docker build -t deepakaggarwal/client-builder -f ./client/Dockerfile.dev  ./client
    
 scripts:
 # run tests
-    - docker CI=true run clientBuilder npm  test -- --coverage
+    - docker CI=true run deepakaggarwal/client-builder npm  test -- --coverage
 
 
 after_success:
