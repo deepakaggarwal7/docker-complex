@@ -4,7 +4,7 @@ services:
     
 before_install:
 # build all images
-    - docker build -t clientBuilder -f Dockerfile.dev  ./client
+    - docker build -t deepakaggarwal/clientbuilder -f Dockerfile.dev  ./client
    
 scripts:
 # run tests
