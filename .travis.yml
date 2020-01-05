@@ -18,7 +18,7 @@ after_success:
     - docker build -t deepakaggarwal/multi-docker-nginx ./nginx
     - docker build -t deepakaggarwal/multi-docker-worker ./worker
 # log-in to docker hub
-    - echo "$PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # push the images
     - docker push deepakaggarwal/multi-docker-client
     - docker push deepakaggarwal/multi-docker-server
