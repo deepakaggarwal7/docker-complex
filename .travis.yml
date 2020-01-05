@@ -4,10 +4,8 @@ services:
     
 before_install:
 # build all images
-    - docker build -t ./worker -f Dockerfile.dev
-    - docker build -t clientBuilder ./client -f Dockerfile.dev
-    - docker build ./server -f Dockerfile.dev
-
+    - docker build -t clientBuilder -f Dockerfile.dev  ./client
+   
 scripts:
 # run tests
     - docker CI=true run clientBuilder npm  test -- --coverage
